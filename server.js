@@ -39,13 +39,17 @@ app.post("/", jsonParser, async (req, res) => {
 
 app.put("/", jsonParser, (req, res) => {
   connect().then(async (connection) => {
-    // the update functionality goes here
+    const { id, item } = req.body;
+    const post = await Post.findByIdAndUpdate(id, { item });
+    res.send(post);
   });
 });
 
 app.delete("/", jsonParser, (req, res) => {
   connect().then(async (connection) => {
-    // the delete functionality goes here
+    const { id } = req.body;
+    const post = await Post.findByIdAndDelete(id);
+    res.send(post);
   });
 });
 
